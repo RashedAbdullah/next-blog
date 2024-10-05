@@ -1,38 +1,26 @@
-import React from "react";
+import Link from "next/link";
+import fs from "fs";
+import matter from "gray-matter";
 
-const blogs = [
-  {
-    id: 1,
-    title: "Understanding JavaScript Closures",
-    description:
-      "A deep dive into closures in JavaScript and how they work under the hood.",
-    date: "October 1, 2024",
-    author: "John Doe",
-  },
-  {
-    id: 2,
-    title: "Mastering React Hooks",
-    description: "Learn how to effectively use React hooks in your projects.",
-    date: "September 28, 2024",
-    author: "Jane Smith",
-  },
-  {
-    id: 3,
-    title: "Tailwind CSS for Beginners",
-    description:
-      "An introduction to Tailwind CSS and how to use it in projects.",
-    date: "September 25, 2024",
-    author: "Alice Johnson",
-  },
-  {
-    id: 4,
-    title: "Building with Next.js",
-    description:
-      "Discover how Next.js improves your workflow for server-rendered React applications.",
-    date: "September 20, 2024",
-    author: "Michael Brown",
-  },
-];
+const dirContents = fs.readdirSync("contents", "utf-8");
+const blogs = dirContents.map((file) => {
+  const fileContent = fs.readFileSync(`contents/${file}`, "utf-8");
+  const { data } = matter(fileContent);
+  return data;
+});
+
+// Log the blogs for debugging (optional)
+console.log(blogs);
+
+// Function to truncate content to the first three lines
+// const truncateContent = (content, lineLimit) => {
+//   const text = content.replace(/<\/?[^>]+(>|$)/g, ""); // Remove HTML tags
+//   const lines = text.split("\n").filter((line) => line.trim() !== ""); // Split by lines and remove empty lines
+//   return (
+//     lines.slice(0, lineLimit).join("\n") +
+//     (lines.length > lineLimit ? "..." : "")
+//   ); // Limit lines
+// };
 
 const BlogsPage = () => {
   return (
@@ -45,21 +33,24 @@ const BlogsPage = () => {
           {blogs.map((blog) => (
             <div
               key={blog.id}
-              className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl duration-300"
             >
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
                 {blog.title}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                {blog.description}
-              </p>
+              <div className="text-gray-600 dark:text-gray-300 mb-4">
+                {blog.content} {/* Display the first 4 lines */}
+              </div>
               <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 mb-6">
                 <span>{blog.date}</span>
                 <span>{blog.author}</span>
               </div>
-              <button className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
-                Read More
-              </button>
+              <Link
+                href={`/blogs/${blog.slug}`}
+                className="bg-blue-600 dark:bg-blue-400 text-white font-semibold py-2 px-4 rounded transition-all duration-200 hover:bg-blue-700 dark:hover:bg-blue-300 transform hover:scale-105"
+              >
+                Details
+              </Link>
             </div>
           ))}
         </div>
