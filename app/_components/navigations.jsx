@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { LightDark } from "./light-dark"; // Assuming this handles light/dark mode switching
+import AuthUserInfo from "./auth-user-info";
 
 const Navigatons = ({ className = "" }) => {
   return (
@@ -29,8 +30,8 @@ const Navigatons = ({ className = "" }) => {
       >
         Contact
       </Link>
-      {/* LightDark component, assuming it handles theme toggling */}
       <LightDark />
+      <AuthUserInfo />
     </div>
   );
 };

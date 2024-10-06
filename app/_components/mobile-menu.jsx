@@ -32,7 +32,7 @@ const MobileMenu = () => {
           <SheetHeader>
             <SheetTitle>Blog Website</SheetTitle>
             <SheetDescription>
-             <Navigatons className="flex justify-center items-center"/>
+             <Navigatons className="flex justify-center items-center flex-wrap"/>
             </SheetDescription>
           </SheetHeader>
         </SheetContent>
