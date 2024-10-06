@@ -6,7 +6,7 @@ const SingleBlogPage = ({ params: { id } }) => {
   const filePath = `contents/${id}.md`;
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
-  console.log(data);
+
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-12">

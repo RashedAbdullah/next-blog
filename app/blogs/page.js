@@ -10,7 +10,7 @@ const blogs = dirContents.map((file) => {
 });
 
 // Log the blogs for debugging (optional)
-console.log(blogs);
+
 
 // Function to truncate content to the first three lines
 // const truncateContent = (content, lineLimit) => {
