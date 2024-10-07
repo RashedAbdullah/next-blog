@@ -6,6 +6,10 @@ import { getBlogs } from "@/actions/blog";
 const Home = async () => {
   const blogs = await getBlogs();
 
+  const resoons = await fetch("http://localhost:3000/api/blogs");
+  if (!resoons.ok) return;
+  const data = await resoons.json();
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       {/* <div>
